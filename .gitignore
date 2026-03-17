@@ -4,8 +4,24 @@
 *.tfstate.*
 crash.log
 
-# Terraform lock file (optional)
+# Terraform lock file
 .terraform.lock.hcl
 
-# Terraform plans
+# Terraform plan files
 *.tfplan
+
+# Sensitive files
+*.pem
+*.key
+devops-key
+devops-key.pub
+
+# Variables (may contain secrets)
+terraform.tfvars
+*.auto.tfvars
+
+# OS / Editor
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
