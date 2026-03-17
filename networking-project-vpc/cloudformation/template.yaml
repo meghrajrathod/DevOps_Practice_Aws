@@ -1,0 +1,162 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: VPC with Public & Private EC2 using NAT Gateway
+
+Parameters:
+  KeyName:
+    Description: EC2 Key Pair
+    Type: String
+    Default: final-key
+
+Resources:
+
+# ---------------- VPC ----------------
+  MyVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      Tags:
+        - Key: Name
+          Value: DevOps-VPC
+
+# ---------------- SUBNETS ----------------
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: us-east-1a
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: Public-Subnet
+
+  PrivateSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: 10.0.2.0/24
+      AvailabilityZone: us-east-1b
+      Tags:
+        - Key: Name
+          Value: Private-Subnet
+
+# ---------------- INTERNET GATEWAY ----------------
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref MyVPC
+      InternetGatewayId: !Ref InternetGateway
+
+# ---------------- PUBLIC ROUTE TABLE ----------------
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref MyVPC
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: AttachGateway
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  PublicSubnetAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet
+      RouteTableId: !Ref PublicRouteTable
+
+# ---------------- NAT GATEWAY ----------------
+  ElasticIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+
+  NatGateway:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt ElasticIP.AllocationId
+      SubnetId: !Ref PublicSubnet
+      Tags:
+        - Key: Name
+          Value: DevOps-NAT
+
+# ---------------- PRIVATE ROUTE TABLE ----------------
+  PrivateRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref MyVPC
+
+  PrivateRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGateway
+
+  PrivateSubnetAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PrivateSubnet
+      RouteTableId: !Ref PrivateRouteTable
+
+# ---------------- SECURITY GROUP ----------------
+  WebSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow SSH and HTTP
+      VpcId: !Ref MyVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: 0.0.0.0/0
+
+# ---------------- PUBLIC EC2 ----------------
+  PublicEC2:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0c02fb55956c7d316
+      InstanceType: t3.micro
+      KeyName: !Ref KeyName
+      SubnetId: !Ref PublicSubnet
+      SecurityGroupIds:
+        - !Ref WebSecurityGroup
+      Tags:
+        - Key: Name
+          Value: Public-EC2
+
+# ---------------- PRIVATE EC2 ----------------
+  PrivateEC2:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0c02fb55956c7d316
+      InstanceType: t3.micro
+      KeyName: !Ref KeyName
+      SubnetId: !Ref PrivateSubnet
+      SecurityGroupIds:
+        - !Ref WebSecurityGroup
+      Tags:
+        - Key: Name
+          Value: Private-EC2
+
+# ---------------- OUTPUTS ----------------
+Outputs:
+  PublicEC2PublicIP:
+    Description: Public EC2 IP
+    Value: !GetAtt PublicEC2.PublicIp
+
+  PrivateEC2PrivateIP:
+    Description: Private EC2 IP
+    Value: !GetAtt PrivateEC2.PrivateIp
