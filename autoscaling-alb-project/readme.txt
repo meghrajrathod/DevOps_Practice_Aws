@@ -181,6 +181,11 @@ Handled by EC2: 10.0.X.X
 
 ---
 
+## Video 
+
+Here is a small video that confirms project working fine. 
+https://www.linkedin.com/posts/rathod-meghraj-460829368_devops-aws-terraform-activity-7442528400688439297-y346?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAFs_QUgBJUwgCnGFdOk9nlJWyRFfTpd4Y28
+
 
 ## 🙌 Conclusion
 
