@@ -1,4 +1,4 @@
-# 🛠️ Troubleshooting Guide
+#  Troubleshooting Guide
 
 ## 1. Target Group Unhealthy
 

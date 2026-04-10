@@ -1,6 +1,6 @@
-# 🚀 AWS 3-Tier Architecture Project
+#  AWS 3-Tier Architecture Project
 
-## 📖 Overview
+##  Overview
 This project demonstrates a production-style AWS architecture using:
 - VPC with public and private subnets
 - Application Load Balancer (ALB)
@@ -11,20 +11,20 @@ This project demonstrates a production-style AWS architecture using:
 
 ---
 
-## 🧱 Architecture
+##  Architecture
 
 ![Architecture](architecture/AWS%203-tier%20VPC%20architecture%20diagram.png)
 ![Architecture](architecture/aws_3tier_vpc_architecture.svg)
 
 ---
 
-## 🔄 Traffic Flow
+##  Traffic Flow
 
 User → ALB → Private EC2 → RDS Database
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 - AWS VPC
 - EC2 (Windows Server)
@@ -35,7 +35,7 @@ User → ALB → Private EC2 → RDS Database
 
 ---
 
-## 🔐 Security
+##  Security
 
 - EC2 instances are in private subnets
 - RDS is not publicly accessible
@@ -44,7 +44,7 @@ User → ALB → Private EC2 → RDS Database
 
 ---
 
-## 🧪 Testing
+##  Testing
 
 - Load balancing tested across multiple EC2 instances
 - Failover tested by stopping one EC2 instance
@@ -53,13 +53,13 @@ User → ALB → Private EC2 → RDS Database
 ---
 
 
-## ⚠️ Note
+##  Note
 
 All AWS resources have been stopped/terminated to avoid billing.  
 This repository contains documentation and proof of implementation.
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
 Meghraj Rathod

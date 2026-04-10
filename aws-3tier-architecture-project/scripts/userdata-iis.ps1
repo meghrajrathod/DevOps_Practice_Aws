@@ -38,7 +38,7 @@ $html = @"
     </style>
 </head>
 <body>
-    <h1>🚀 App Server Running</h1>
+    <h1> App Server Running</h1>
     <p>This is a private EC2 behind Load Balancer</p>
 </body>
 </html>

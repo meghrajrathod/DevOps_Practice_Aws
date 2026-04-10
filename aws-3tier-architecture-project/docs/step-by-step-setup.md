@@ -1,4 +1,4 @@
-# 🛠️ Step-by-Step AWS 3-Tier Architecture Setup
+#  Step-by-Step AWS 3-Tier Architecture Setup
 
 ## 1. VPC Creation
 
