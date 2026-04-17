@@ -1,9 +1,6 @@
 # Flask App — AWS ECS Deployment
 
 A minimal Flask web application built for learning containerization and deployment to **AWS ECS (Elastic Container Service)**.
-
-Part of the [TrainWithShubham](https://github.com/TrainWithShubham) — DevOps Zero To Hero course.
-
 ![Python](https://img.shields.io/badge/Python-3.14-blue)
 ![Flask](https://img.shields.io/badge/Flask-3.1.1-green)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED)
@@ -20,7 +17,7 @@ Part of the [TrainWithShubham](https://github.com/TrainWithShubham) — DevOps Z
 | Component | Technology |
 |-----------|------------|
 | Framework | Flask 3.1.1 |
-| Runtime   | Python 3.14 |
+| Runtime   | Python 3.11 |
 | Container | Docker (python-slim / distroless) |
 | Deploy    | AWS ECS |
 
