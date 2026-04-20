@@ -35,23 +35,24 @@ A production-style AWS 3 tier architecture built using Terraform to understand r
 ## Project Structure
 
 
-cloudforge-infra/
+cloudforge-infra
+│
 ├── main.tf
 ├── variables.tf
 ├── terraform.tfvars
 │
-├── modules/
-│ ├── vpc/
-│ ├── subnets/
-│ ├── internet_gateway/
-│ ├── nat_gateway/
-│ ├── routing/
-│ ├── security_groups/
-│ ├── ec2/
-│ ├── autoscaling/
-│ ├── nlb/
-│ ├── route53/
-│ └── vpn/
+└── modules
+├── vpc
+├── subnets
+├── internet_gateway
+├── nat_gateway
+├── routing
+├── security_groups
+├── ec2
+├── autoscaling
+├── nlb
+├── route53
+└── vpn
 
 
 ## Workflow
