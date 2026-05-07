@@ -41,4 +41,3 @@ jobs:
         run: docker build -t finverse-api .
         working-directory: ./backend/FinVerse.API
 
-        ##working
