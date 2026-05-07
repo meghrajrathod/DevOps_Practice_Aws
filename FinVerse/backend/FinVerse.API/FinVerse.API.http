@@ -1,0 +1,6 @@
+@FinVerse.API_HostAddress = http://localhost:5023
+
+GET {{FinVerse.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

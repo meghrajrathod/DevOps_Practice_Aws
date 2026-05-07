@@ -1,0 +1,34 @@
+services:
+
+  postgres-db:
+    image: postgres:17
+    container_name: finverse-postgres
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: finverse_db
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  finverse-api:
+    build:
+      context: ./backend/FinVerse.API
+
+    container_name: finverse-api
+
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - postgres-db
+
+    environment:
+      ConnectionStrings__DefaultConnection: Host=postgres-db;Port=5432;Database=finverse_db;Username=postgres;Password=password
+
+volumes:
+  postgres_data:
