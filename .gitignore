@@ -1,4 +1,6 @@
+# =========================
 # Terraform
+# =========================
 .terraform/
 *.tfstate
 *.tfstate.*
@@ -10,18 +12,60 @@ crash.log
 # Terraform plan files
 *.tfplan
 
-# Sensitive files
+# Variables (may contain secrets)
+terraform.tfvars
+*.auto.tfvars
+
+# =========================
+# Sensitive Files
+# =========================
 *.pem
 *.key
 devops-key
 devops-key.pub
 
-# Variables (may contain secrets)
-terraform.tfvars
-*.auto.tfvars
+# AWS / Credentials
+*.csv
+credentials
+*.env
 
-# OS / Editor
-.vscode/
+# =========================
+# .NET / ASP.NET
+# =========================
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+# Rider / VS Code
 .idea/
+.vscode/
+
+# =========================
+# Node.js
+# =========================
+node_modules/
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.pyc
+
+# =========================
+# Java
+# =========================
+target/
+*.class
+
+# =========================
+# Docker
+# =========================
+*.log
+
+# =========================
+# OS Files
+# =========================
 .DS_Store
 Thumbs.db
